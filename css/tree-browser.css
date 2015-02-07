@@ -1,0 +1,19 @@
+.react-tree-browser-container ul {
+  list-style: none;
+}
+
+.react-tree-browser-node {
+  cursor: pointer;
+}
+
+.react-tree-browser-node::before {
+  content: '- ';
+}
+
+.react-tree-browser-node.react-tree-browser-collapsed::before {
+  content: '+ ';
+}
+
+.react-tree-browser-leaf::before {
+  content: '\b7\a0';
+}

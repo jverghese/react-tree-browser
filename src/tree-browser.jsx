@@ -50,7 +50,7 @@ var TreeBrowser = (function () {
             var target = $(event.target),
                 paths = [];
             // If target is a tree node that's not a leaf, then perform collapse/expand.
-            if (target.hasClass(getCSSPrefix("node")) && !target.data("leaf")) {
+            if (target.hasClass(getCSSPrefix("node"))) {
                 while(target && !target.data("root")) { // while not root node
                     if (isEmpty(paths)) {
                         paths.unshift(target.text());
@@ -94,10 +94,24 @@ var TreeBrowser = (function () {
     });
 
     var TreeNode = React.createClass({
+        /**
+         * Responsible applying right classes for styling based on node state (adding icons via css etc).
+         * @param node
+         * @returns {string}
+         */
+        getNodeClass: function(node) {
+            var classes;
+            if (isEmpty(node.children)) {
+                classes = getCSSPrefix("leaf");
+            } else {
+                classes = getCSSPrefix("node");
+            }
+            return node.collapse ? classes + " " + getCSSPrefix("collapsed") : classes;
+        },
         render: function () {
             var treeNodes = this.props.data.map(function (node) {
                 var nodeFragment = [
-                    <li className={getCSSPrefix("node")} data-collapsed={node.collapse} data-leaf={isEmpty(node.children)}>
+                    <li className={this.getNodeClass(node)}>
                         {node.name}
                     </li>
                 ];
@@ -109,7 +123,7 @@ var TreeBrowser = (function () {
                     );
                 }
                 return nodeFragment;
-            });
+            }, this);
             return (
                 <div className={getCSSPrefix("node-level")}>
                 {treeNodes}
