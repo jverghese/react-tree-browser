@@ -1,0 +1,10 @@
+[
+  {"name": "sites", "collapse": false, "children": [
+    {"name": "site1", "collapse": false, "children": [
+      {"name": "assets", "collapse": false, "children": []},
+      {"name": "dist", "collapse": false, "children": []}
+    ]},
+    {"name": "site2", "collapse": false, "children": []}
+  ]},
+  {"name": "includes", "collapse": false, "children": []}
+]
