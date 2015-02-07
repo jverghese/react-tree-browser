@@ -1,0 +1,48 @@
+[
+  {"name": "node1", "collapse": false, "children": [
+    {"name": "node11", "collapse": false, "children": [
+      {"name": "node111", "collapse": false, "children": []},
+      {"name": "node112", "collapse": false, "children": []}
+    ]},
+    {"name": "node12", "collapse": false, "children": [
+      {"name": "node121", "collapse": false, "children": []},
+      {"name": "node122", "collapse": false, "children": []}
+    ]}
+  ]},
+  {"name": "node2", "collapse": false, "children": []},
+  {"name": "node3", "collapse": false, "children": []},
+  {"name": "node4", "collapse": false, "children": [
+    {"name": "node41", "collapse": false, "children": [
+      {"name": "node411", "collapse": false, "children": []},
+      {"name": "node412", "collapse": false, "children": []}
+    ]},
+    {"name": "node42", "collapse": false, "children": [
+      {"name": "node421", "collapse": false, "children": []},
+      {"name": "node422", "collapse": false, "children": []}
+    ]}
+  ]},
+  {"name": "node5", "collapse": false, "children": []},
+  {"name": "node6", "collapse": false, "children": [
+    {"name": "node61", "collapse": false, "children": [
+      {"name": "node611", "collapse": false, "children": []},
+      {"name": "node612", "collapse": false, "children": []}
+    ]},
+    {"name": "node62", "collapse": false, "children": [
+      {"name": "node621", "collapse": false, "children": []},
+      {"name": "node622", "collapse": false, "children": []}
+    ]}
+  ]},
+  {"name": "node7", "collapse": false, "children": []},
+  {"name": "node8", "collapse": false, "children": []},
+  {"name": "node9", "collapse": false, "children": [
+    {"name": "node91", "collapse": false, "children": [
+      {"name": "node911", "collapse": false, "children": []},
+      {"name": "node912", "collapse": false, "children": []}
+    ]},
+    {"name": "node92", "collapse": false, "children": [
+      {"name": "node921", "collapse": false, "children": []},
+      {"name": "node922", "collapse": false, "children": []}
+    ]}
+  ]},
+  {"name": "node10", "collapse": false, "children": []}
+]

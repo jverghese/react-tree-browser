@@ -4,6 +4,7 @@
   </head>
   <body>
     <h1>Tree Browser</h1>
+    <button id="changeDataButton">Change Data</button>
     <div id="treeContainer"></div>
     <!-- include react -->
     <script src="lib/react/react.js"></script>
@@ -13,15 +14,17 @@
     <script type="text/jsx" src="src/tree-browser.jsx"></script>
     <script type="text/jsx">
       var treeBrowser = TreeBrowser.create('#treeContainer');
-      $.ajax({
-        url: "sample-data/tree.json",
-        dataType: 'json',
-        success: function (data) {
+      // Fetch and load initial tree data
+      $.getJSON("sample-data/tree.json")
+        .then(function(data) {
           treeBrowser.setData(data);
-        }.bind(this),
-        error: function (xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
+        });
+
+      $("#changeDataButton").click(function() {
+        $.getJSON("sample-data/tree2.json")
+                .then(function(data) {
+                  treeBrowser.setData(data);
+                });
       });
     </script>
   </body>

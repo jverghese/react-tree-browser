@@ -71,7 +71,7 @@ var TreeBrowser = (function () {
          * @param paths Array of names
          * @returns {node}
          */
-        findNodeFromPathArray: function(paths) {
+        _findNodeFromPathArray: function(paths) {
             var nodePointer = { children: this.state.data };
             paths.forEach(function(path) {
                 // Short circuit as soon as you find node with path as name
