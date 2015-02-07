@@ -121,15 +121,15 @@ var TreeBrowser = (function () {
     return {
         /**
          * Creates a tree browser component.
-         * @param container Css selector to render item to.
+         * @param cssSelector Css selector to render item to.
          * @param data Optional initial tree data to render
          * @return {TreeBrowser}
          */
-        create: function(container, data) {
+        create: function(cssSelector, data) {
             data = data || {};
             return React.render(
                 <TreeBrowser data={data} />,
-                document.getElementById(container)
+                $(cssSelector)[0]
             );
         }
     };
