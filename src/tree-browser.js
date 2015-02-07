@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 // IIFE to prevent global variable pollution.
 var TreeBrowser = (function () {
     "use strict";
