@@ -2,11 +2,20 @@
   <head>
     <title>TreeBrowser Component</title>
     <link rel="stylesheet" href="css/tree-browser.css">
+    <style type="text/css">
+      /* Demo Styles */
+      .tree-container {
+        border: 1px solid black;
+      }
+    </style>
   </head>
   <body>
     <h1>Tree Browser</h1>
     <button id="changeDataButton">Change Data</button>
-    <div id="treeContainer"></div>
+    <button id="addTreeButton">Add tree</button>
+    <p></p>
+    <div class="tree-container" id="treeContainer"></div>
+    <div class="tree-container" id="treeContainer2"></div>
     <!-- include react -->
     <script src="lib/react/react.js"></script>
     <script src="lib/react/JSXTransformer.js"></script>
@@ -23,10 +32,18 @@
 
       $("#changeDataButton").click(function() {
         $.getJSON("sample-data/tree2.json")
-                .then(function(data) {
-                  treeBrowser.setData(data);
-                });
+          .then(function(data) {
+            treeBrowser.setData(data);
+          });
       });
+
+      $("#addTreeButton").click(function() {
+        $(this).hide();
+        $.getJSON("sample-data/tree2.json")
+          .then(function(data) {
+            TreeBrowser.create('#treeContainer2', data);
+          });
+      })
     </script>
   </body>
 </html>

@@ -31,7 +31,7 @@ var TreeBrowser = (function () {
      */
     var TreeBrowser = React.createClass({
         getInitialState: function () {
-            return { data: [] };
+            return this.props.data;
         },
         /**
          * Method to update tree data after render.
@@ -140,7 +140,7 @@ var TreeBrowser = (function () {
          * @return {TreeBrowser}
          */
         create: function(cssSelector, data) {
-            data = data || {};
+            data = { data: data || [] };
             return React.render(
                 <TreeBrowser data={data} />,
                 $(cssSelector)[0]
