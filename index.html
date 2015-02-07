@@ -10,7 +10,19 @@
     <script src="lib/react/JSXTransformer.js"></script>
     <!-- include jquery -->
     <script src="lib/jquery/dist/jquery.js"></script>
-    <script src="lib/jquery/dist/jquery.js"></script>
     <script type="text/jsx" src="src/tree-browser.jsx"></script>
+    <script type="text/jsx">
+      var treeBrowser = TreeBrowser.create('treeContainer');
+      $.ajax({
+        url: "sample-data/tree.json",
+        dataType: 'json',
+        success: function (data) {
+          treeBrowser.setData(data);
+        }.bind(this),
+        error: function (xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    </script>
   </body>
 </html>

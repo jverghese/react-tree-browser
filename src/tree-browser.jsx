@@ -1,5 +1,5 @@
 // IIFE to prevent global variable pollution.
-(function () {
+var TreeBrowser = (function () {
     "use strict";
 
     /**
@@ -31,19 +31,14 @@
      */
     var TreeBrowser = React.createClass({
         getInitialState: function () {
-            return {data: []};
+            return { data: [] };
         },
-        loadData: function () {
-            $.ajax({
-                url: this.props.url,
-                dataType: 'json',
-                success: function (data) {
-                    this.setState({data: data});
-                }.bind(this),
-                error: function (xhr, status, err) {
-                    console.error(this.props.url, status, err.toString());
-                }.bind(this)
-            });
+        /**
+         * Method to update tree data after render.
+         * @param data
+         */
+        setData: function(data) {
+            this.setState({ data: data });
         },
         /**
          * A single click handler that handles all tree node clicks.
@@ -51,7 +46,7 @@
          * figure out which data point in the component state to toggle collapse.
          * @param event The click event
          */
-        handleTreeNodeClick: function(event) {
+        _handleTreeNodeClick: function(event) {
             var target = $(event.target),
                 paths = [];
             // If target is a tree node that's not a leaf, then perform collapse/expand.
@@ -65,12 +60,17 @@
                     // Traverse additional parent because react is adding an extraneous container.
                     target = target.parent().parent();
                 }
-                var clickedNode = this.findNodeFromPathArray(paths);
+                var clickedNode = this._findNodeFromPathArray(paths);
                 clickedNode.collapse = !clickedNode.collapse;
                 // Note: Perhaps react has a more concise of saying update with current state.
                 this.setState(this.state)
             }
         },
+        /**
+         * Finds data for node given it's path, where a path represents a name of a node to traverse.
+         * @param paths Array of names
+         * @returns {node}
+         */
         findNodeFromPathArray: function(paths) {
             var nodePointer = { children: this.state.data };
             paths.forEach(function(path) {
@@ -82,13 +82,10 @@
             });
             return nodePointer;
         },
-        componentDidMount: function () {
-            this.loadData();
-        },
         render: function () {
             return (
                 <div className={getCSSPrefix("container")}>
-                    <ul data-root="true" onClick={this.handleTreeNodeClick}>
+                    <ul data-root="true" onClick={this._handleTreeNodeClick}>
                         <TreeNode data={this.state.data} />
                     </ul>
                 </div>
@@ -121,8 +118,20 @@
         }
     });
 
-    React.render(
-        <TreeBrowser url="sample-data/tree.json" />,
-        document.getElementById('treeContainer')
-    );
+    return {
+        /**
+         * Creates a tree browser component.
+         * @param container Css selector to render item to.
+         * @param data Optional initial tree data to render
+         * @return {TreeBrowser}
+         */
+        create: function(container, data) {
+            data = data || {};
+            return React.render(
+                <TreeBrowser data={data} />,
+                document.getElementById(container)
+            );
+        }
+    };
+
 })();
