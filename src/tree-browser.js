@@ -48,24 +48,12 @@ var TreeBrowser = (function () {
          * figure out which data point in the component state to toggle collapse.
          * @param event The click event
          */
-        _handleTreeNodeClick: function(event) {
-            var target = $(event.target),
-                paths = [];
-            // If target is a tree node that's not a leaf, then perform collapse/expand.
-            if (target.hasClass(getCSSPrefix("node"))) {
-                while(target && !target.data("root")) { // while not root node
-                    if (isEmpty(paths)) {
-                        paths.unshift(target.text());
-                    } else {
-                        paths.unshift(target.prev().text());
-                    }
-                    // Traverse additional parent because react is adding an extraneous container.
-                    target = target.parent().parent();
-                }
+        _handleClick: function(event) {
+            var paths = this.refs.treeRoot.getPathForContainedNode($(event.target));
+            if (paths != null) {
                 var clickedNode = this._findNodeFromPathArray(paths);
                 clickedNode.collapse = !clickedNode.collapse;
-                // Note: Perhaps react has a more concise of saying update with current state.
-                this.setState(this.state)
+                this.forceUpdate();
             }
         },
         /**
@@ -87,8 +75,8 @@ var TreeBrowser = (function () {
         render: function () {
             return (
                 <div className={getCSSPrefix("container")}>
-                    <ul data-root="true" onClick={this._handleTreeNodeClick}>
-                        <TreeNode data={this.state.data} />
+                    <ul data-root="true" onClick={this._handleClick}>
+                        <TreeNode ref="treeRoot" data={this.state.data} />
                     </ul>
                 </div>
             );
@@ -109,6 +97,27 @@ var TreeBrowser = (function () {
                 classes = getCSSPrefix("node");
             }
             return node.collapse ? classes + " " + getCSSPrefix("collapsed") : classes;
+        },
+        /**
+         * Given an element in subtree, returns it's path from the root.
+         * @param target
+         * @returns {*}
+         */
+        getPathForContainedNode: function(target) {
+            var paths = [];
+            if (target.hasClass(getCSSPrefix("node"))) {
+                while (target && !target.data("root")) { // while not root node
+                    if (isEmpty(paths)) {
+                        paths.unshift(target.text());
+                    } else {
+                        paths.unshift(target.prev().text());
+                    }
+                    // Traverse additional parent because react is adding an extraneous container.
+                    target = target.parent().parent();
+                }
+                return paths;
+            }
+            return null;
         },
         render: function () {
             var treeNodes = this.props.data.map(function (node) {
